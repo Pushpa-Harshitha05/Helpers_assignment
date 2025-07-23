@@ -87,7 +87,7 @@
     cursor: pointer;
 }
 
-.sidebar-links .dropdown img {
+.sidebar-links img {
     width: 12px;
     height: 16px;
 }
@@ -111,29 +111,44 @@
 
 .sidebar-links li{
     list-style-type: none;
-    padding: 4px;
-}
-
-.sidebar-links li:hover {
-    cursor: pointer;
-}
-
-.sidebar-links li img {
-    width: 21.3px;
-    height: 14.3px;
-    margin-right: 10px;
-}
-
-.sidebar-links a {
-    text-decoration: none;
-    color: #000;
-    font-size: 13.7px;
 }
 
 .selected{
     background-color: rgb(222, 230, 250);
 }
 
-.selected a{
+.selected li{
     color: rgb(75, 37, 200);
+}
+
+.sidebar-links li {
+    list-style-type: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    color: #000;
+    font-size: 13.7px;
+    display: flex;
+    align-items: center;
+    transition: background 0.2s, color 0.2s;
+    cursor: pointer;
+}
+
+/* Hover effect for sidebar items */
+.sidebar-links li:hover {
+    background-color: rgb(221, 228, 247);
+    color: rgb(75, 37, 200);
+}
+
+/* Selected sidebar item */
+.sidebar-links li.selected {
+    background-color: rgb(222, 230, 250);
+    color: rgb(75, 37, 200);
+    font-weight: 600;
+}
+
+/* Icon inside sidebar item */
+.sidebar-links li img {
+    width: 21.3px;
+    height: 14.3px;
+    margin-right: 10px;
 }

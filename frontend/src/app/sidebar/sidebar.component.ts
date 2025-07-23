@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -10,6 +11,9 @@ import { CommonModule } from '@angular/common';
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent {
+
+  constructor(private router: Router) {}
+  
   sidebarItems: any = [
     { 
       main_name: 'RESIDENT',
@@ -49,7 +53,24 @@ export class SidebarComponent {
 
   selected: { groupIdx: number, itemIdx: number } | null = null;
 
-  selectItem(groupIdx: number, itemIdx: number) {
+  ngOnInit() {
+    if(this.router.url == '/helpers'){
+      const staff_idx = this.sidebarItems.findIndex((item: any) => item.main_name === 'STAFF');
+
+      if(staff_idx !== -1){
+        this.sidebarItems[staff_idx].isOpen = true;
+        const helpers_idx = this.sidebarItems[staff_idx].items.findIndex((item: any) => item.name === 'Helpers');
+        if(helpers_idx !== -1){
+          this.selected = { groupIdx:staff_idx, itemIdx: helpers_idx };
+        }
+      }
+    }
+  }
+
+  selectItem(groupIdx: number, itemIdx: number,name: string): void {
     this.selected = { groupIdx, itemIdx };
+    if (name === 'Helpers') {
+      this.router.navigate(['/helpers']);
+    }
   }
 }
