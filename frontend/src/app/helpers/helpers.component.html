@@ -1,1 +1,54 @@
-<app-sidebar></app-sidebar>
+<div class="helpers-page">
+    <app-sidebar></app-sidebar>
+
+    <div class="main-section">
+
+        <div class="heading">
+            <p>Helpers</p>
+            <img src="/assets/images/more.png" alt="more">
+        </div>
+
+        <div class="line"></div>
+
+        <div class="buttons">
+            <div class="first-btns">
+                <button id="sort">
+                    <img src="/assets/images/sorting.png" alt="sorting">
+                </button>
+                <button id="filter">
+                    <img src="/assets/images/filter.png" alt="filter">
+                </button>
+                <button id="date">
+                    <img src="/assets/images/calendar.png" alt="calendar">
+                </button>
+                <div class="search-bar">
+                    <img src="/assets/images/search.png" alt="search icon">
+                    <input type="search" name="search" id="search-employee" placeholder="Name, Employee ID, Phone">
+                </div>
+                <span>{{ + ' helpers'}}</span>
+            </div>
+
+            <div class="last-btns">
+                <button id="download">
+                    <img src="assets/images/download.png" alt="">
+                </button>
+                <button id="add-helper">
+                    <img src="assets/images/plus.png" alt="add">
+                    <span>Add Helper</span>
+                </button>
+            </div>
+
+        </div>
+
+        <div class="helpers-content">
+            <aside class="helpers-list">
+                <app-helpers-list></app-helpers-list>
+            </aside>
+            <section class="helper-details">
+                <app-helper-details></app-helper-details>
+            </section>
+        </div>
+
+    </div>
+
+</div>

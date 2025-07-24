@@ -1,0 +1,166 @@
+.helpers-page{
+    display: flex;
+    height: 100vh;
+}
+
+.main-section {
+    width: 80vw;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.main-section .heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 23px;
+    height: 9%;
+    width: 100%;
+}
+
+.main-section .heading p {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.main-section .heading img {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.main-section .line{
+    height: 1px;
+    width: 100%;
+    background-color: rgb(224, 224, 224);
+}
+
+.buttons{
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 23px;
+    height: 9.2%;
+    width: 100%;
+}
+.search-bar{
+    border: 1px solid rgb(207, 207, 207);
+    display: flex;
+    background-color: white;
+    height: 32px;
+    width: 85%;
+    border-radius: 5px;
+    gap: 9px;
+}
+
+.search-bar img{
+    width: 17px;
+    height: 17px;
+    position: relative;
+    left: 5px;
+    top: 6px;
+}
+
+.search-bar input {
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    border: none;
+    background-color: white;
+}
+
+.search-bar input:focus {
+    outline: none;
+}
+
+.search-bar input::placeholder {
+    color: rgb(164, 164, 164);
+    font-size: 13.3px;
+}
+
+.main-section .buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;  
+}
+
+.main-section button{
+    width: 51px;
+    height: 32px;
+    border-radius: 4px;
+    border: 1px solid rgb(207, 207, 207);
+    background-color: white;
+    cursor: pointer;
+}
+
+.main-section button img{
+    width: 14px;
+    height: 14px;
+}
+
+.main-section .buttons .first-btns{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.last-btns{
+    width: 18%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+}
+
+.main-section .buttons .first-btns button:first-child img {
+    width: 18px;
+    height: 18px;
+}
+
+.main-section .buttons .last-btns button:first-child {
+    width: 32px;
+    height: 32px;
+    background-color: white;
+}
+
+.main-section .buttons .last-btns button:last-child {
+    width: 63%;
+    height: 32px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    background-color: rgb(106, 79, 195);
+    color: white;
+    font-size: 13.2px;
+}
+
+#add-helper img {
+    width: 10.5px;
+    height: 10.5px;
+}
+
+.helpers-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80%;
+    gap: 20px;
+    padding: 4px 23px;
+}
+
+.helpers-list {
+    width: 30%;
+    height: 100%;
+    overflow-y: auto;
+    border: 1px solid rgb(207, 207, 207);
+    border-radius: 7px;
+}
+
+.helper-details {
+    width: 70%;
+    height: 100%;
+    overflow-y: auto;
+    border: 1px solid rgb(207, 207, 207);
+    border-radius: 7px;
+}

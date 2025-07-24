@@ -1,5 +1,5 @@
 .sidebar{
-    width: 23.5vw;
+    width: 20vw;
     background-color: rgb(244, 245, 250);
     padding: 30px;
     padding-top: 20px;
@@ -133,20 +133,17 @@
     cursor: pointer;
 }
 
-/* Hover effect for sidebar items */
 .sidebar-links li:hover {
     background-color: rgb(221, 228, 247);
     color: rgb(75, 37, 200);
 }
 
-/* Selected sidebar item */
 .sidebar-links li.selected {
     background-color: rgb(222, 230, 250);
     color: rgb(75, 37, 200);
     font-weight: 600;
 }
 
-/* Icon inside sidebar item */
 .sidebar-links li img {
     width: 21.3px;
     height: 14.3px;
