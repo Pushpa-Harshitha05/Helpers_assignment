@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const listingSchema = new mongoose.Schema({
-    profileImage: String,
     serviceType: String,
     organizationName: String,
     fullName: String,
@@ -13,9 +12,11 @@ const listingSchema = new mongoose.Schema({
     vehicleNumber: String,
     Documents:[{
         Type: String,
-        Image: String
     }],
-    JoiningDate: Date,
+    JoiningDate: {
+        type: Date,
+        default: Date.now
+    },
 })
 
 const Listing = mongoose.model("Listing", listingSchema);

@@ -54,7 +54,7 @@ export class SidebarComponent {
   selected: { groupIdx: number, itemIdx: number } | null = null;
 
   ngOnInit() {
-    if(this.router.url == '/helpers'){
+    if(this.router.url == '/helpers' || this.router.url == '/helpers/add-helper'){
       const staff_idx = this.sidebarItems.findIndex((item: any) => item.main_name === 'STAFF');
 
       if(staff_idx !== -1){
