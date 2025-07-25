@@ -7,21 +7,19 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-helpers',
+  standalone: true,
   imports: [
     SidebarComponent,
     HelperDetailsComponent,
     HelpersListComponent
   ],
   templateUrl: './helpers.component.html',
-  styleUrl: './helpers.component.css'
+  styleUrl: './helpers.component.scss'
 })
 export class HelpersComponent {
   constructor(private service:ServiceService,private router:Router) {}
 
   addNewHelper() {
-    // this.service.addHelper({ serviceType:'cook' }).subscribe((response) => {
-    //   console.log(response);
-    // })
     this.router.navigate(['/helpers/add-helper'])
   }
 }

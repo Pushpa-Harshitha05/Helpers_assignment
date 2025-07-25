@@ -11,7 +11,7 @@ describe('FormTrackerComponent', () => {
       imports: [FormTrackerComponent]
     })
     .compileComponents();
-
+    
     fixture = TestBed.createComponent(FormTrackerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

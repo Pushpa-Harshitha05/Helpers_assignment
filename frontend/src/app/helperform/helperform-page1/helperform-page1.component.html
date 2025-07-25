@@ -1,0 +1,69 @@
+<main class="form-1">
+  <div class="form-header">
+    <p>Helper Details</p>
+    <span>Track,Add & Manage all your helpers at one place</span>
+  </div>
+  <form class="helper-form" >
+    <div class="profile-img" (click)="fileUpload()">
+        <input type="file" name="profile" id="profileimg" accept="image/*" hidden #fileInput>
+        <div>
+            <p>Upload photo</p>
+        </div>
+    </div>
+    <span>Upload photo (.png, .jpeg) size 5 mb</span>
+
+    <label for="service">Type of Service*</label>
+    <select id="service" name="service" required>
+        <option value="" disabled selected>Select Type of Service</option>
+        <option value="Maid">Maid</option>
+        <option value="Cook">Cook</option>
+        <option value="Nurse">Nurse</option>
+        <option value="Driver">Driver</option>
+        <option value="Laundry">Laundry</option>
+        <option value="Newspaper">Newspaper</option>
+        <option value="Plumber">Plumber</option>
+    </select>
+
+    <label for="organization">Organization Name*</label>
+    <select name="organization" id="organization">
+        <option value="" disabled selected>Organization Name</option>
+        <option value="asbl">ASBL</option>
+        <option value="springs-helpers">Springs Helpers</option>
+    </select>
+
+    <label for="name">Full Name*</label>
+    <input type="text" id="name" name="name" placeholder="Full Name" required>
+
+    <label for="languages">Languages*</label>
+    <select id="languages" name="languages" required>
+        <option value="" disabled selected>Select languages</option>
+        <option value="English">English</option>
+        <option value="Hindi">Hindi</option>
+        <option value="Telugu">Telugu</option>
+        <option value="Kannada">Kannada</option>
+        <option value="Tamil">Tamil</option>
+        <option value="Malayalam">Malayalam</option>
+    </select>
+
+    <div class="genders">Gender*
+        <div class="gender-class" *ngFor="let gen of genders">
+            <input type="radio" name="gender" [id]="gen.id" [value]="gen.value" required>
+            <label [for]="gen.id">{{ gen.display }}</label>
+        </div>
+    </div>
+
+    <div class="phone-input-group">
+        <label for="phone">Phone*</label>
+        <select formControlName="countryCode">
+            <option *ngFor="let code of dialCodes" [value]="code">
+                {{ code }}
+            </option>
+        </select>
+
+        <input type="tel" id="phone" placeholder="Enter phone number" required>
+    </div>     
+
+
+  </form>
+
+</main>

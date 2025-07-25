@@ -11,7 +11,7 @@ describe('HelperformPage2Component', () => {
       imports: [HelperformPage2Component]
     })
     .compileComponents();
-
+    
     fixture = TestBed.createComponent(HelperformPage2Component);
     component = fixture.componentInstance;
     fixture.detectChanges();

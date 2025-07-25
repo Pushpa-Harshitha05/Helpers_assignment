@@ -15,5 +15,4 @@ export class ServiceService {
   display() {
     return this.http.get('http://localhost:3002/display');
   }
-
 }
