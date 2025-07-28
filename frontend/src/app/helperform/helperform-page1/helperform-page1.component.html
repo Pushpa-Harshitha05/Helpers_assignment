@@ -6,64 +6,52 @@
   <form class="helper-form" >
     <div class="profile-img" (click)="fileUpload()">
         <input type="file" name="profile" id="profileimg" accept="image/*" hidden #fileInput>
+        <img src="assets/images/cloud_download.png" alt="upload">
         <div>
             <p>Upload photo</p>
         </div>
     </div>
     <span>Upload photo (.png, .jpeg) size 5 mb</span>
 
-    <label for="service">Type of Service*</label>
-    <select id="service" name="service" required>
-        <option value="" disabled selected>Select Type of Service</option>
-        <option value="Maid">Maid</option>
-        <option value="Cook">Cook</option>
-        <option value="Nurse">Nurse</option>
-        <option value="Driver">Driver</option>
-        <option value="Laundry">Laundry</option>
-        <option value="Newspaper">Newspaper</option>
-        <option value="Plumber">Plumber</option>
-    </select>
+    <app-select-dropdown heading="Type of Service" label="Select Type of Service" [options]="['Maid', 'Cook', 'Nurse', 'Driver', 'Laundry', 'Newspaper', 'Plumber']"></app-select-dropdown>
 
-    <label for="organization">Organization Name*</label>
-    <select name="organization" id="organization">
-        <option value="" disabled selected>Organization Name</option>
-        <option value="asbl">ASBL</option>
-        <option value="springs-helpers">Springs Helpers</option>
-    </select>
+    <app-select-dropdown heading="Organization Name" label="Organization Name" [options]="['ASBL','Springs Helpers']"></app-select-dropdown>
 
     <label for="name">Full Name*</label>
     <input type="text" id="name" name="name" placeholder="Full Name" required>
 
-    <label for="languages">Languages*</label>
-    <select id="languages" name="languages" required>
-        <option value="" disabled selected>Select languages</option>
-        <option value="English">English</option>
-        <option value="Hindi">Hindi</option>
-        <option value="Telugu">Telugu</option>
-        <option value="Kannada">Kannada</option>
-        <option value="Tamil">Tamil</option>
-        <option value="Malayalam">Malayalam</option>
-    </select>
+    <app-checkbox></app-checkbox>
 
-    <div class="genders">Gender*
-        <div class="gender-class" *ngFor="let gen of genders">
-            <input type="radio" name="gender" [id]="gen.id" [value]="gen.value" required>
-            <label [for]="gen.id">{{ gen.display }}</label>
-        </div>
-    </div>
+    <app-radio-button></app-radio-button>
 
     <div class="phone-input-group">
-        <label for="phone">Phone*</label>
-        <select formControlName="countryCode">
-            <option *ngFor="let code of dialCodes" [value]="code">
-                {{ code }}
-            </option>
-        </select>
+        <app-select-dropdown class="phone" heading="Phone" [options]="['+91', '+1', '+44', '+61', '+81', '+49', '+33']"></app-select-dropdown>
 
         <input type="tel" id="phone" placeholder="Enter phone number" required>
     </div>     
 
+    <label for="email">Email</label>
+    <input type="email" name="emial" id="email">
+
+    <app-select-dropdown heading="Choose Vehicle Type" [options]="['None','Car','Bike','Auto','Cycle']"></app-select-dropdown>
+
+    <div class="document">
+      <p>KYC Document*</p>
+      <div class="profile-img doc" (click)="fileUpload()">
+          <input type="file" name="profile" id="profileimg" accept="image/*" hidden #fileInput>
+          <div>
+              <img src="assets/images/plus.png" alt="Upload">
+          </div>
+      </div>
+    </div>
 
   </form>
+
+  <div class="line"></div>
+  
+  <button (click)="onPageChange()">
+    <p>Next</p>
+    <img src="assets/images/arrow-up.png" alt="next">
+  </button>
 
 </main>

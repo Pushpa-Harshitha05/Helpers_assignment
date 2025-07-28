@@ -1,1 +1,43 @@
-<p>helperform-page3 works!</p>
+<div class="user-details-card">
+
+  <div class="section">
+    <h2>Personal Details</h2>
+    <div class="row">
+      <p><strong>Gender:</strong> {{ user.gender }}</p>
+      <p><strong>Languages:</strong> {{ user.languages.join(', ') }}</p>
+    </div>
+    <div class="row">
+      <p><strong>Mobile No.:</strong> {{ user.mobile }}</p>
+      <p><strong>Email ID:</strong> {{ user.email }}</p>
+    </div>
+    <div class="row">
+      <p><strong>KYC Document:</strong> 
+        <a [href]="user.kycUrl" target="_blank">View Document</a>
+      </p>
+    </div>
+  </div>
+
+  <div class="line"></div>
+
+  <div class="section">
+    <h2>Service Details</h2>
+    <div class="row">
+      <p><strong>Type:</strong> {{ user.serviceType }}</p>
+      <p><strong>Organization:</strong> {{ user.organization }}</p>
+    </div>
+    <div class="row">
+      <p><strong>Joined On:</strong> {{ user.joinedOn }}</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="buttons">
+    <button (click)="onPageChange()" id="previous">
+        <p>Previous</p>
+        <img src="assets/images/arrow-up.png" alt="next">
+    </button>
+    <button>
+        Add helper
+    </button>
+</div>

@@ -1,24 +1,25 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RadioButtonComponent } from '../../radio-button/radio-button.component';
+import { SelectDropdownComponent } from '../../select-dropdown/select-dropdown.component';
+import { CheckboxComponent } from '../../checkbox/checkbox.component';
+import { HelperformPage2Component } from '../helperform-page2/helperform-page2.component';
 
 @Component({
   selector: 'app-helperform-page1',
   standalone: true,
   imports: [
-    CommonModule
+    CommonModule,
+    RadioButtonComponent,
+    SelectDropdownComponent,
+    CheckboxComponent,
+    HelperformPage2Component
   ],
   templateUrl: './helperform-page1.component.html',
   styleUrl: './helperform-page1.component.scss'
 })
 
 export class HelperformPage1Component {
-  genders = [
-    { id: 'check-male', value: 'male', display: 'Male' },
-    { id: 'check-female', value: 'female', display: 'Female' },
-    { id: 'check-other', value: 'other', display: 'Other' },
-  ]
-
-  dialCodes: string[] = ['+91', '+1', '+44', '+61', '+81', '+49', '+33']
 
   pattern: string = '[0-9]{10}'
 
@@ -26,4 +27,11 @@ export class HelperformPage1Component {
   fileUpload() {
     this.fileInput.nativeElement.click();
   }
+
+  @Output() changePage = new EventEmitter<number>();
+
+  onPageChange() {
+    this.changePage.emit(2);
+  }
+
 }

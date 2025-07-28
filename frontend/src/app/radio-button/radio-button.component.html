@@ -1,0 +1,8 @@
+<div class="gender-group">
+  <p class="gender-label">Gender*</p>
+  <mat-radio-group aria-label="Select an option" name="gender" required>
+    <mat-radio-button *ngFor="let gen of genders" [value]="gen.value" [id]="gen.id" class="custom-radio">
+      <p>{{ gen.display }}</p>
+    </mat-radio-button>
+  </mat-radio-group>
+</div>

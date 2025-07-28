@@ -1,0 +1,7 @@
+<p>{{ heading }}*</p>
+<mat-form-field>
+    <mat-label>{{ label }}</mat-label>
+    <mat-select>
+        <mat-option [value]="opt" *ngFor="let opt of options">{{ opt }}</mat-option>
+    </mat-select>
+</mat-form-field>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter, Input, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-helperform-page2',
@@ -9,4 +9,16 @@ import { Component } from '@angular/core';
 })
 export class HelperformPage2Component {
 
+  @Input () categoryNum!: number;
+
+  @Output () changePage = new EventEmitter<number>();
+
+  onPageChange(num: number) {
+    this.changePage.emit(this.categoryNum + num);
+  }
+
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+  fileUpload() {
+    this.fileInput.nativeElement.click();
+  }
 }

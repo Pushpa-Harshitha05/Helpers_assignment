@@ -1,0 +1,93 @@
+.user-details-card {
+    width: 57vw;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #fafafa;
+    border-radius: 1rem;
+    border: 1px solid #dadada;
+    font-family: 'Segoe UI', sans-serif;
+    color: #333;
+    margin-left: 1.3rem;
+    margin-top: 4.3rem;
+    height: 80vh;
+
+    .line {
+        height: 1.45px;
+        width: 100%;
+        background-color: rgb(224, 224, 224);
+        margin-top: 20px
+    }
+
+    .section {
+        h2 {
+            color: rgb(75, 37, 200); // Purple heading
+            margin-bottom: 1rem;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+
+            p {
+                flex: 1 1 45%;
+                margin: 0;
+            }
+
+            a {
+                color: rgb(75, 37, 200);
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .divider {
+        margin: 2rem 0;
+        border: none;
+        border-top: 2px solid #ccc;
+    }
+}
+
+.buttons {
+    display: flex;
+    margin-left: 70%;
+
+    button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 3px;
+        margin: 10px;
+        margin-top: 0px;
+        border-radius: 4px;
+        cursor: pointer;
+        border: 1px solid #ccc;
+        flex-direction: row-reverse;
+        width: 7.4rem;
+        background-color: white;
+        color: black;
+        height: 37px;
+
+        &:last-child{
+            background-color: rgb(75, 37, 200);
+            color: white;
+            width: 8.8rem;
+            font-size: 15px;
+        }
+
+        p {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 0px;
+        }
+
+        img {
+            width: 15px;
+            height: 15px;
+            transform: rotate(-90deg);
+            filter: invert(1);
+        }
+    }
+}
