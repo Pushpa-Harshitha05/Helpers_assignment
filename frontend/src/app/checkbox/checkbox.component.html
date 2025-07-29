@@ -1,21 +1,13 @@
 <section class="example-section">
-  <span class="example-list-section">
-    <mat-checkbox class="example-margin"
-                  [checked]="language().completed"
-                  [indeterminate]="partiallyComplete()"
-                  (change)="update($event.checked)">
-      {{ language().name }}
-    </mat-checkbox>
-  </span>
+  <mat-checkbox class="example-margin" [checked]="allSelected" [indeterminate]="partiallySelected" (change)="toggleSelectAll($event.checked)">
+    Select All
+  </mat-checkbox>
 
-  <span class="example-list-section">
-    <ul>
-      <li *ngFor="let lang of language().languages; let i = index">
-        <mat-checkbox [checked]="lang.completed"
-                      (change)="update($event.checked, i)">
-          {{ lang.name }}
-        </mat-checkbox>
-      </li>
-    </ul>
-  </span>
+  <ul class="example-list-section">
+    <li *ngFor="let lang of alllanguages">
+      <mat-checkbox [checked]="selectedlanguages().has(lang.name)" (change)="toggleLanguage(lang.name, $event.checked)">
+        {{ lang.name }}
+      </mat-checkbox>
+    </li>
+  </ul>
 </section>

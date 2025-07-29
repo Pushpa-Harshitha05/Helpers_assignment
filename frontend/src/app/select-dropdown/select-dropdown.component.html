@@ -1,7 +1,10 @@
-<p>{{ heading }}*</p>
-<mat-form-field>
-    <mat-label>{{ label }}</mat-label>
-    <mat-select>
-        <mat-option [value]="opt" *ngFor="let opt of options">{{ opt }}</mat-option>
-    </mat-select>
+<p>{{ heading }} *</p>
+
+<mat-form-field appearance="fill" class="full-width">
+  <mat-label>{{ label }}</mat-label>
+  <mat-select [value]="value" (selectionChange)="onSelectionChange($event.value)" [disabled]="disabled">
+    <mat-option *ngFor="let opt of options" [value]="opt">
+      {{ opt }}
+    </mat-option>
+  </mat-select>
 </mat-form-field>

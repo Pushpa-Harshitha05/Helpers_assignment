@@ -70,13 +70,6 @@
         color: black;
         height: 37px;
 
-        &:last-child{
-            background-color: rgb(75, 37, 200);
-            color: white;
-            width: 8.8rem;
-            font-size: 15px;
-        }
-
         p {
             font-size: 15px;
             font-weight: 600;
@@ -89,5 +82,12 @@
             transform: rotate(-90deg);
             filter: invert(1);
         }
+    }
+
+    input{
+        background-color: rgb(75, 37, 200);
+        color: white;
+        width: 8.8rem;
+        font-size: 15px;
     }
 }

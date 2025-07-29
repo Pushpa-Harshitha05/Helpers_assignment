@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form-tracker',
@@ -9,4 +10,9 @@ import { Component } from '@angular/core';
 })
 export class FormTrackerComponent {
 
+  constructor(private router:Router) {}
+
+  Helpersroute() {
+    this.router.navigate(['/helpers']);
+  }
 }

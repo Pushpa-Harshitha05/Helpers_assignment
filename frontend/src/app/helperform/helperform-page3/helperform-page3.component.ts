@@ -1,4 +1,5 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-helperform-page3',
@@ -15,4 +16,6 @@ export class HelperformPage3Component {
   }
 
   user: any = []
+
+  @Input()  form: FormGroup;
 }

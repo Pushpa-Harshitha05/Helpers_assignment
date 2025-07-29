@@ -1,4 +1,5 @@
 import { Component, Output, EventEmitter, Input, ViewChild, ElementRef } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-helperform-page2',
@@ -10,6 +11,7 @@ import { Component, Output, EventEmitter, Input, ViewChild, ElementRef } from '@
 export class HelperformPage2Component {
 
   @Input () categoryNum!: number;
+  @Input() form!: FormGroup;
 
   @Output () changePage = new EventEmitter<number>();
 

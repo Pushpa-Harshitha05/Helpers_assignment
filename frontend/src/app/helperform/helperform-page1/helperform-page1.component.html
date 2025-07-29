@@ -1,57 +1,75 @@
 <main class="form-1">
   <div class="form-header">
     <p>Helper Details</p>
-    <span>Track,Add & Manage all your helpers at one place</span>
+    <span>Track, Add & Manage all your helpers at one place</span>
   </div>
-  <form class="helper-form" >
+
+  <div class="helper-form" [formGroup]="form">
     <div class="profile-img" (click)="fileUpload()">
-        <input type="file" name="profile" id="profileimg" accept="image/*" hidden #fileInput>
-        <img src="assets/images/cloud_download.png" alt="upload">
-        <div>
-            <p>Upload photo</p>
-        </div>
+      <input type="file" name="profile" id="profileimg" accept="image/*" hidden #fileInput>
+      <img src="assets/images/cloud_download.png" alt="upload">
+      <div>
+        <p>Upload photo</p>
+      </div>
     </div>
     <span>Upload photo (.png, .jpeg) size 5 mb</span>
 
-    <app-select-dropdown heading="Type of Service" label="Select Type of Service" [options]="['Maid', 'Cook', 'Nurse', 'Driver', 'Laundry', 'Newspaper', 'Plumber']"></app-select-dropdown>
+    <app-select-dropdown
+      heading="Type of Service"
+      label="Select Type of Service"
+      [options]="['Maid', 'Cook', 'Nurse', 'Driver', 'Laundry', 'Newspaper', 'Plumber']"
+      formControlName="serviceType">
+    </app-select-dropdown>
 
-    <app-select-dropdown heading="Organization Name" label="Organization Name" [options]="['ASBL','Springs Helpers']"></app-select-dropdown>
+    <app-select-dropdown
+      heading="Organization Name"
+      label="Organization Name"
+      [options]="['ASBL', 'Springs Helpers']"
+      formControlName="organization">
+    </app-select-dropdown>
 
     <label for="name">Full Name*</label>
-    <input type="text" id="name" name="name" placeholder="Full Name" required>
+    <input type="text" id="name" placeholder="Full Name" formControlName="fullName" required>
 
-    <app-checkbox></app-checkbox>
+    <app-checkbox name="language" formControlName="languages"></app-checkbox>
 
-    <app-radio-button></app-radio-button>
+    <app-radio-button name="gender" formControlName="gender"></app-radio-button>
 
     <div class="phone-input-group">
-        <app-select-dropdown class="phone" heading="Phone" [options]="['+91', '+1', '+44', '+61', '+81', '+49', '+33']"></app-select-dropdown>
+      <app-select-dropdown
+        class="phone"
+        heading="Phone"
+        [options]="['+91', '+1', '+44', '+61', '+81', '+49', '+33']"
+        formControlName="phonePrefix">
+      </app-select-dropdown>
 
-        <input type="tel" id="phone" placeholder="Enter phone number" required>
-    </div>     
+      <input type="tel" id="phone" placeholder="Enter phone number" formControlName="phone" required>
+    </div>
 
     <label for="email">Email</label>
-    <input type="email" name="emial" id="email">
+    <input type="email" id="email" formControlName="email">
 
-    <app-select-dropdown heading="Choose Vehicle Type" [options]="['None','Car','Bike','Auto','Cycle']"></app-select-dropdown>
+    <app-select-dropdown
+      heading="Choose Vehicle Type"
+      [options]="['None','Car','Bike','Auto','Cycle']"
+      formControlName="vehicleType">
+    </app-select-dropdown>
 
     <div class="document">
       <p>KYC Document*</p>
       <div class="profile-img doc" (click)="fileUpload()">
-          <input type="file" name="profile" id="profileimg" accept="image/*" hidden #fileInput>
-          <div>
-              <img src="assets/images/plus.png" alt="Upload">
-          </div>
+        <input type="file" accept="image/*, application/pdf" hidden #fileInput>
+        <div>
+          <img src="assets/images/plus.png" alt="Upload">
+        </div>
       </div>
     </div>
-
-  </form>
+  </div>
 
   <div class="line"></div>
-  
+
   <button (click)="onPageChange()">
     <p>Next</p>
     <img src="assets/images/arrow-up.png" alt="next">
   </button>
-
 </main>
