@@ -6,17 +6,14 @@ p{
 
 mat-form-field{
 
-    margin-bottom: 1.2rem;
+    margin-bottom: 1rem;
 
     mat-label{
         font-size: 14.5px;
-    }
-
-    mat-select{
-        background-color: white;
     }
 }
 
 .full-width {
   width: 100%;
+  background-color: white;
 }

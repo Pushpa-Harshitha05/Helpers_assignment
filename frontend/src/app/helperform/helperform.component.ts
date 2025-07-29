@@ -1,4 +1,4 @@
-import { Component,signal } from '@angular/core';
+import { Component,OnInit,signal, AfterViewInit } from '@angular/core';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { FormTrackerComponent } from './form-tracker/form-tracker.component';
 import { HelperformPage1Component } from './helperform-page1/helperform-page1.component';
@@ -23,9 +23,10 @@ import { ServiceService } from '../services/service.service';
   templateUrl: './helperform.component.html',
   styleUrl: './helperform.component.scss'
 })
-export class HelperformComponent {
+export class HelperformComponent implements OnInit {
 
   category = signal(1);
+  data: any = [];
 
   pageChanged(num: number):void {
     this.category.set(num);
@@ -53,13 +54,26 @@ export class HelperformComponent {
 
   submitHelperForm() {
     if (this.helperForm.valid) {
-      this.service.addHelper(this.helperForm.value).subscribe(res => {
+
+      const formData = this.helperForm.value;
+      for (let key in formData){
+        if(formData.hasOwnProperty(key)){
+          if(Array.isArray(formData[key])){
+            this.data.push({name:key,values:formData[key]});
+          }
+          else{
+            this.data.push({name:key,value:formData[key]});
+          }
+        }
+      }
+
+      this.service.addHelper(this.data).subscribe(res => {
         console.log("Success", res);
       });
     } else {
       console.warn("Form is invalid");
     }
-}
+  }
 
   
 }

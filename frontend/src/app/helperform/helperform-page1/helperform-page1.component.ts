@@ -38,6 +38,10 @@ export class HelperformPage1Component{
   @Output() changePage = new EventEmitter<number>();
 
   onPageChange() {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
     this.changePage.emit(2);
   }
 

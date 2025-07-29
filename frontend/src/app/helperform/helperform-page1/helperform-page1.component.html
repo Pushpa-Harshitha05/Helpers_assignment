@@ -20,6 +20,10 @@
       [options]="['Maid', 'Cook', 'Nurse', 'Driver', 'Laundry', 'Newspaper', 'Plumber']"
       formControlName="serviceType">
     </app-select-dropdown>
+    <div class="error-message" *ngIf="form.get('serviceType')?.touched && form.get('serviceType')?.hasError('required')">
+      Service type is required
+    </div>
+
 
     <app-select-dropdown
       heading="Organization Name"
@@ -27,13 +31,26 @@
       [options]="['ASBL', 'Springs Helpers']"
       formControlName="organization">
     </app-select-dropdown>
+    <div class="error-message" *ngIf="form.get('organization')?.touched && form.get('organization')?.hasError('required')">
+      This field is required
+    </div>
+
 
     <label for="name">Full Name*</label>
     <input type="text" id="name" placeholder="Full Name" formControlName="fullName" required>
+    <div class="error-message" *ngIf="form.get('fullName')?.touched && form.get('fullName')?.hasError('required')">
+      This field is required
+    </div>
 
     <app-checkbox name="language" formControlName="languages"></app-checkbox>
+    <div class="error-message" *ngIf="form.get('languages')?.touched && form.get('languages')?.hasError('required')">
+      This field is required
+    </div>
 
     <app-radio-button name="gender" formControlName="gender"></app-radio-button>
+    <div class="error-message" *ngIf="form.get('gender')?.touched && form.get('gender')?.hasError('required')">
+      This field is required
+    </div>
 
     <div class="phone-input-group">
       <app-select-dropdown
@@ -44,6 +61,9 @@
       </app-select-dropdown>
 
       <input type="tel" id="phone" placeholder="Enter phone number" formControlName="phone" required>
+    </div>
+    <div class="error-message" *ngIf="form.get('phone')?.touched && form.get('phone')?.hasError('required')">
+      This field is required
     </div>
 
     <label for="email">Email</label>

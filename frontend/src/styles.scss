@@ -43,3 +43,14 @@ $my-theme: mat.define-light-theme((
 }
 
 html, body { height: 100%; }
+
+.error-message {
+  color: red;
+  font-size: 0.85rem;
+  margin-top: -1.1rem;
+  margin-bottom: 1rem;
+}
+
+.invalid-field {
+  border: 1px solid red;
+}

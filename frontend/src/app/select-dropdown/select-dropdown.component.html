@@ -1,6 +1,6 @@
 <p>{{ heading }} *</p>
 
-<mat-form-field appearance="fill" class="full-width">
+<mat-form-field class="full-width" appearance="outline">
   <mat-label>{{ label }}</mat-label>
   <mat-select [value]="value" (selectionChange)="onSelectionChange($event.value)" [disabled]="disabled">
     <mat-option *ngFor="let opt of options" [value]="opt">

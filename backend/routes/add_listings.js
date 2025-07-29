@@ -4,22 +4,8 @@ const Listing = require('../db/listings');
 const router = express.Router();
 
 router.post('/add-helper', async(req, res) => {
-    console.log("request received",req.body);
     try{
-        const newListing = req.body;
-        let helper_listing = new Listing({
-            serviceType: newListing.serviceType,
-            organizationName: newListing.organization,    
-            fullName: newListing.fullName,
-            languages: newListing.languages,
-            gender: newListing.gender,
-            phoneNumber: newListing.phone,             
-            email: newListing.email,
-            vehicleType: newListing.vehicleType,
-            vehicleNumber: newListing.vehicleNumber || '', 
-            Documents: newListing.kycDocument || null    
-        });
-
+        let helper_listing = new Listing({ fields: req.body });
 
         helper_listing = await helper_listing.save();
         return res.status(201).json({ message: "Helper added", data: helper_listing });

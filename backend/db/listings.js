@@ -1,22 +1,8 @@
 const mongoose = require('mongoose');
+const modelSchema = require('./model')
 
 const listingSchema = new mongoose.Schema({
-    serviceType: String,
-    organizationName: String,
-    fullName: String,
-    languages: [String],
-    gender: String,
-    phoneNumber: String,
-    email: String,
-    vehicleType: String,
-    vehicleNumber: String,
-    Documents:[{
-        Type: String,
-    }],
-    JoiningDate: {
-        type: Date,
-        default: Date.now
-    },
+    fields: [modelSchema]
 })
 
 const Listing = mongoose.model("Listing", listingSchema);
