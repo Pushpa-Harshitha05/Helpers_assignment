@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
@@ -8,7 +8,7 @@ import { FormGroup } from '@angular/forms';
   templateUrl: './helperform-page3.component.html',
   styleUrl: './helperform-page3.component.scss'
 })
-export class HelperformPage3Component {
+export class HelperformPage3Component implements OnInit{
   @Output () changePage = new EventEmitter();
 
   onPageChange(){
@@ -18,4 +18,14 @@ export class HelperformPage3Component {
   user: any = []
 
   @Input()  form: FormGroup;
+
+  data: any;
+  ele:any;
+
+  ngOnInit() {
+    this.data = this.form.value;
+    for(this.ele in this.data){
+      console.log(this.ele);
+    }
+  }
 }

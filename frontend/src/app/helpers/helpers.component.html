@@ -25,7 +25,7 @@
                     <img src="/assets/images/search.png" alt="search icon">
                     <input type="search" name="search" id="search-employee" placeholder="Name, Employee ID, Phone">
                 </div>
-                <span>{{ + ' helpers'}}</span>
+                <span>{{helpers_number + ' helpers'}}</span>
             </div>
 
             <div class="last-btns">
@@ -40,14 +40,9 @@
 
         </div>
 
-        <div class="helpers-content">
-            <aside class="helpers-list">
-                <app-helpers-list></app-helpers-list>
-            </aside>
-            <section class="helper-details">
-                <app-helper-details></app-helper-details>
-            </section>
-        </div>
+        <section class="helpers-list">
+            <app-helpers-list></app-helpers-list>
+        </section>
 
     </div>
 

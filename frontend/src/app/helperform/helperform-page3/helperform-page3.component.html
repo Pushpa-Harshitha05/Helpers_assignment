@@ -1,35 +1,31 @@
-<div class="user-details-card">
-
-  <div class="section">
-    <h2>Personal Details</h2>
-    <div class="row">
-      <p><strong>Gender:</strong> {{ user.gender }}</p>
-      <p><strong>Languages:</strong> {{ user.languages }}</p>
-    </div>
-    <div class="row">
-      <p><strong>Mobile No.:</strong> {{ user.mobile }}</p>
-      <p><strong>Email ID:</strong> {{ user.email }}</p>
-    </div>
-    <div class="row">
-      <p><strong>KYC Document:</strong> 
-        <a [href]="user.kycUrl" target="_blank">View Document</a>
-      </p>
+<div class="container">
+  <div class="profile-header">
+    <div class="initials">TH</div>
+    <div>
+      <h2>{{ data['fullName'] }}</h2>
+      <p class="role">{{ data['serviceType'] }}</p>
     </div>
   </div>
 
-  <div class="line"></div>
-
   <div class="section">
-    <h2>Service Details</h2>
-    <div class="row">
-      <p><strong>Type:</strong> {{ user.serviceType }}</p>
-      <p><strong>Organization:</strong> {{ user.organization }}</p>
-    </div>
-    <div class="row">
-      <p><strong>Joined On:</strong> {{ user.joinedOn }}</p>
-    </div>
+    <h3>Personal Details</h3>
+    <ul>
+      <li><strong>Gender:</strong> {{ data['gender'] }}</li>
+      <li><strong>Languages:</strong> {{ data['languages'].join(', ') }}</li>
+      <li><strong>Mobile No.:</strong> {{ data['phonePrefix'] }} {{ data['phone'] }}</li>
+      <li><strong>Email ID:</strong> {{ data['email'] || '-' }}</li>
+      <li><strong>KYC Document:</strong> <a href="#"><img src="assets/images/view.png" alt="view"></a></li>
+    </ul>
   </div>
 
+  <div class="section">
+    <h3>Service Details</h3>
+    <ul>
+      <li><strong>Type:</strong> {{ data['serviceType'] }}</li>
+      <li><strong>Organization:</strong>{{ data['organization'] }}</li>
+      <li><strong>Joined On:</strong> 16 Jun 2025</li>
+    </ul>
+  </div>
 </div>
 
 <div class="buttons">
