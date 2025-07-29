@@ -11,7 +11,7 @@ export class ServiceService {
   constructor(private http:HttpClient) { }
 
   addHelper(data: any) {
-    return this.http.post('http://localhost:3002/add-helper', data);
+    return this.http.post('http://localhost:3002/add-helper', data)
   }
 
   display() {

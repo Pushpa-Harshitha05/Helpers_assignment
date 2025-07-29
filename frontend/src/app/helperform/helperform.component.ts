@@ -6,6 +6,7 @@ import { HelperformPage2Component } from './helperform-page2/helperform-page2.co
 import { HelperformPage3Component } from './helperform-page3/helperform-page3.component';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ServiceService } from '../services/service.service';
 
 @Component({
   selector: 'app-helperform',
@@ -32,7 +33,7 @@ export class HelperformComponent {
 
   helperForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private service:ServiceService) {}
 
   ngOnInit(): void {
     this.helperForm = this.fb.group({
@@ -46,13 +47,20 @@ export class HelperformComponent {
       phone: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
       email: ['', [Validators.email]],
       vehicleType: ['None'],
-      kycDocument: [null, Validators.required]
+      kycDocument: [null]
     });
   }
 
   submitHelperForm() {
-    console.log(this.helperForm.value);
-  }
+    if (this.helperForm.valid) {
+      this.service.addHelper(this.helperForm.value).subscribe(res => {
+        console.log("Success", res);
+      });
+    } else {
+      console.warn("Form is invalid");
+    }
+}
+
   
 }
 
