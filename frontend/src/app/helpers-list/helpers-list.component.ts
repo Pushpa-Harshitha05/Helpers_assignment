@@ -1,10 +1,15 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input, Signal, OnChanges } from '@angular/core';
 import { ServiceService } from '../services/service.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
+
+function getFieldValue(fields: any[], key: string): string {
+  const field = fields.find(f => f.name === key);
+  return field?.value?.toLowerCase() ?? '';
+}
 
 @Component({
   selector: 'app-helpers-list',
@@ -22,6 +27,26 @@ export class HelpersListComponent {
 
   all_helpers: any = [];
   selectedHelper: any;
+
+  @Input() search!: Signal<string>;
+  @Input() helpers: any[] = [];
+  
+  filteredHelpers() {
+    const searchTerm = this.search().toLowerCase().trim();
+
+    let baseList = this.helpers?.length > 0 ? this.helpers : this.all_helpers;
+
+    if (searchTerm !== '') {
+      return baseList.filter(helper => {
+        const fullName = getFieldValue(helper.fields, 'fullName');
+        const phone = getFieldValue(helper.fields, 'phone');
+        return fullName.includes(searchTerm) || phone.includes(searchTerm);
+      });
+    }
+
+    return baseList;
+  }
+
 
   private dialog = inject(MatDialog);
 

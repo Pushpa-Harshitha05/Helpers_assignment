@@ -66,10 +66,161 @@
           color: rgb(117, 117, 117);
         }
 
-        button#sort img {
-          width: 18px;
-          height: 18px;
+        .sorting {
+          position: relative;
+          display: inline-block;
+
+          button#sort {
+            background: none;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            transition: background 0.2s ease;
+            width: 35px;
+
+            &:hover {
+              background-color: #f0f0f0;
+            }
+
+            img {
+              width: 20px;
+              height: 20px;
+            }
+          }
+
+          .sort-options {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 5px;
+            z-index: 1000;
+            width: 260px;
+            height: 110px;
+            min-width: 160px;
+            padding: 5px 7px;
+
+            p {
+              margin: 0;
+              height: 50%;
+              padding: 10px 15px;
+              cursor: pointer;
+              font-size: 14.3px;
+              font-weight: 500;
+              color: #333;
+              transition: background 0.2s;
+
+              &:hover {
+                background-color: #f5f5f5;
+              }
+            }
+
+            .sortselected{
+              background-color: rgba(38, 0, 255, 0.1);
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+
+              img{
+                width: 15px;
+                height: 15px;
+              }
+            }
+          }
         }
+
+        .filtering {
+          position: relative;
+          display: inline-block;
+
+          #filter {
+            background: transparent;
+            border: 1px solid #ddd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 36px;
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 6px;
+            transition: background 0.3s ease;
+
+            &:hover {
+              background-color: #f0f0f0;
+            }
+
+            img {
+              width: 20px;
+              height: 20px;
+            }
+          }
+
+          .filter-options {
+            position: absolute;
+            top: 40px;
+            left: 0;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            min-width: 260px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+
+            app-select-dropdown {
+              width: 100%;
+            }
+
+            .filter-btns {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              padding: 0px;
+              gap: 10px;
+              width: 100%;
+
+              button {
+                padding: 8px 0;
+                border: none;
+                border-radius: 6px;
+                font-weight: 500;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+                width: 30%;
+
+                &:first-child {
+                  background: none;
+                  color: black;
+                  font-size: 16px;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+
+                  &:hover {
+                    background-color: #ededed;
+                  }
+                }
+
+                &:last-child {
+                  background-color: #4caf50; // green for apply
+                  color: white;
+
+                  &:hover {
+                    background-color: #388e3c;
+                  }
+                }
+              }
+            }
+          }
+        }
+
 
         .search-bar {
           border: 1px solid rgb(207, 207, 207);

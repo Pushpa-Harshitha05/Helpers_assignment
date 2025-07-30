@@ -12,18 +12,51 @@
 
         <div class="buttons">
             <div class="first-btns">
-                <button id="sort">
-                    <img src="/assets/images/sorting.png" alt="sorting">
-                </button>
-                <button id="filter">
-                    <img src="/assets/images/filter.png" alt="filter">
-                </button>
+                <div class="sorting">
+                    <button id="sort" (click)="showdropdown = !showdropdown">
+                        <img src="/assets/images/sorting.png" alt="sorting">
+                    </button>
+                    <div class="sort-options" *ngIf="showdropdown">
+                        <p (click)="sortBy('fullName')" [ngClass]="{ sortselected: selectedSortField === 1 }">
+                            Sort by Helpers Name(A-Z)
+                            <img src="assets/images/select.png" alt="..." *ngIf="selectedSortField === 1">
+                        </p>
+                        <p (click)="sortBy('serviceType')" [ngClass]="{ sortselected: selectedSortField === 2 }">
+                            Employee ID
+                            <img src="assets/images/select.png" alt="..." *ngIf="selectedSortField === 2">
+                        </p>
+                    </div>
+                </div>
+
+                <div class="filtering">
+                    <button id="filter" (click)="showdropdown_filter = !showdropdown_filter">
+                        <img src="/assets/images/filter.png" alt="filter">
+                    </button>
+                    <div class="filter-options" *ngIf="showdropdown_filter">
+                        <app-select-dropdown 
+                        #servicedropdown
+                        heading="Type of Service"
+                        label="Select Type of Service"
+                        [options]="['Maid', 'Cook', 'Nurse', 'Driver', 'Laundry', 'Newspaper', 'Plumber']">
+                        </app-select-dropdown>
+                        <app-select-dropdown 
+                        #ordropdown
+                        heading="Organization Name"
+                        label="Organization Name"
+                        [options]="['ASBL', 'Springs Helpers']">
+                        </app-select-dropdown>
+                        <div class="filter-btns">
+                            <button (click)="resetFilters()">reset</button>
+                            <button (click)="applyFilters()">Apply</button>
+                        </div>
+                    </div>
+                </div>
                 <button id="date">
                     <img src="/assets/images/calendar.png" alt="calendar">
                 </button>
                 <div class="search-bar">
                     <img src="/assets/images/search.png" alt="search icon">
-                    <input type="search" name="search" id="search-employee" placeholder="Name, Employee ID, Phone">
+                    <input type="search" name="search" id="search-employee" placeholder="Name, Employee ID, Phone" [value]="searchSignal()" (input)="searchSignal.set($any($event.target).value)">
                 </div>
                 <span>{{helpers_number + ' helpers'}}</span>
             </div>
@@ -37,11 +70,10 @@
                     <span>Add Helper</span>
                 </button>
             </div>
-
         </div>
 
         <section class="helpers-list">
-            <app-helpers-list></app-helpers-list>
+            <app-helpers-list [search]="searchSignal" [helpers]="filtered_helpers"></app-helpers-list>
         </section>
 
     </div>

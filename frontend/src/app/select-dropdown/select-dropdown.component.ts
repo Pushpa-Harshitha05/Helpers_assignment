@@ -49,7 +49,11 @@ export class SelectDropdownComponent implements ControlValueAccessor {
 
   onSelectionChange(value: string) {
     this.value = value;
-    this.onChange(value);
-    this.onTouched();
+    if (this.onChange) {
+      this.onChange(value);
+    }
+    if (this.onTouched) {
+      this.onTouched();
+    }
   }
 }

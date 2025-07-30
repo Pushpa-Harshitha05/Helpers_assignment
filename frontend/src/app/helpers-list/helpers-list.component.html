@@ -1,6 +1,6 @@
 <div class="container">
   <div class="helpers-list">
-    <div *ngFor="let helper of all_helpers" class="helper-card" [ngClass]="{ 'selected': helper === selectedHelper }" (click)="selectHelper(helper)">
+    <div *ngFor="let helper of filteredHelpers()" class="helper-card" [ngClass]="{ 'selected': helper === selectedHelper }" (click)="selectHelper(helper)">
       <div class="profilephoto">
         {{ getFieldValue(helper.fields, 'fullName') | slice:0:1 }}
       </div>
@@ -85,4 +85,3 @@
 </div>
 
 </div>
-
