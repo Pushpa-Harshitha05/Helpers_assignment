@@ -26,10 +26,6 @@ export class ServiceService {
     this.sharedNumber.update(value => value-1);
   }
 
-  editHelperDetails() {
-    
-  }
-
   getHelperById(id: string) {
     return this.http.get(`http://localhost:3002/getdetails/${id}`);
   }

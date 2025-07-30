@@ -78,8 +78,10 @@ export class HelperformComponent implements OnInit {
       const dialogRef = this.dialog.open(DialogComponent, {
         data: {
           ...this.currenthelper,
-          deletion: false
-        }
+          deletion: false,
+        },
+        height: '400px',
+        width: '550px'
       });
 
       dialogRef.afterClosed().subscribe(() => {

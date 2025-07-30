@@ -7,6 +7,7 @@ import { SelectDropdownComponent } from '../select-dropdown/select-dropdown.comp
 import { CheckboxComponent } from '../checkbox/checkbox.component'; 
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-edit-helper',
@@ -16,7 +17,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     RadioButtonComponent,
     SelectDropdownComponent,
     CheckboxComponent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSnackBarModule
   ],
   templateUrl: './edit-helper.component.html',
   styleUrl: './edit-helper.component.scss'
@@ -30,7 +32,8 @@ export class EditHelperComponent {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private service: ServiceService
+    private service: ServiceService,
+    private snackBar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {
@@ -78,8 +81,15 @@ export class EditHelperComponent {
         }
       }
       this.service.updateHelper(this.helperId, this.data).subscribe(() => {
-        alert('Helper updated successfully');
-        this.router.navigate(['/helpers']);
+        this.snackBar.open('Helper updated successfully!', 'Close', {
+          horizontalPosition: 'right',
+          verticalPosition: 'bottom',
+          panelClass: ['snackbar-success']
+        });
+
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+            this.router.navigate(['/helpers']);
+          });
       });
     }
     else{

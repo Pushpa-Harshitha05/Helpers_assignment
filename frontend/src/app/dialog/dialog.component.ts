@@ -10,8 +10,11 @@ import { CommonModule } from '@angular/common';
   templateUrl: 'dialog.component.html'
 })
 export class DialogComponent {
+  length: number;
   constructor(
     public dialogRef: MatDialogRef<DialogComponent>, 
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
+  ) {
+    this.length = Object.keys(data).filter(key => !isNaN(Number(key))).length;
+  }
 }

@@ -4,19 +4,21 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
+import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-helpers-list',
   standalone: true,
   imports: [
-    CommonModule
+    CommonModule,
+    MatSnackBarModule
   ],
   templateUrl: './helpers-list.component.html',
   styleUrl: './helpers-list.component.scss'
 })
 
 export class HelpersListComponent {
-  constructor(private service:ServiceService, private router:Router) {}
+  constructor(private service:ServiceService, private router:Router,private snackBar: MatSnackBar) {}
 
   all_helpers: any = [];
   selectedHelper: any;
@@ -67,7 +69,14 @@ export class HelpersListComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
         this.service.deleteHelper(helper._id).subscribe((res) => {
-          window.location.reload();
+          this.snackBar.open('Helper deleted successfully!', 'Close', {
+            horizontalPosition: 'right',
+            verticalPosition: 'bottom',
+            panelClass: ['snackbar-success']
+          });
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+            this.router.navigate(['/helpers']);
+          });
         })
       } else {
         console.log('User deletion cancelled.');
