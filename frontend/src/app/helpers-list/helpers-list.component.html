@@ -13,15 +13,23 @@
   </div>
 
   <div class="profile-card" *ngIf="selectedHelper">
-  <div class="profile-header">
-    <div class="initials">
-      {{ getFieldValue(selectedHelper.fields, 'fullName') | slice:0:2 }}
+    <div class="profile-header">
+      <div class="left-section">
+        <div class="initials">
+          {{ getFieldValue(selectedHelper.fields, 'fullName') | slice:0:2 }}
+        </div>
+        <div class="name-role">
+          <div class="name">{{ getFieldValue(selectedHelper.fields, 'fullName') }}</div>
+          <div class="role">{{ getFieldValue(selectedHelper.fields, 'serviceType') }}</div>
+        </div>
+      </div>
+
+      <div class="options">
+        <button (click)="editHelper(selectedHelper)"><img src="assets/images/edit.png" alt="edit"></button>
+        <button mat-raised-button color="warn" (click)="deleteHelper(selectedHelper)"><img src="assets/images/delete.png" alt="delete"></button>
+      </div>
     </div>
-    <div class="name-role">
-      <div class="name">{{ getFieldValue(selectedHelper.fields, 'fullName') }}</div>
-      <div class="role">{{ getFieldValue(selectedHelper.fields, 'serviceType') }}</div>
-    </div>
-  </div>
+
 
   <div class="section">
     <h4>Employee ID</h4>

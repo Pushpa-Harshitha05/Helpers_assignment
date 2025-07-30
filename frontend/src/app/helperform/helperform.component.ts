@@ -1,4 +1,4 @@
-import { Component,OnInit,signal, AfterViewInit } from '@angular/core';
+import { Component,OnInit,signal, inject } from '@angular/core';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { FormTrackerComponent } from './form-tracker/form-tracker.component';
 import { HelperformPage1Component } from './helperform-page1/helperform-page1.component';
@@ -7,6 +7,9 @@ import { HelperformPage3Component } from './helperform-page3/helperform-page3.co
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ServiceService } from '../services/service.service';
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'app-helperform',
@@ -27,6 +30,9 @@ export class HelperformComponent implements OnInit {
 
   category = signal(1);
   data: any = [];
+  currenthelper: any;
+
+  private dialog = inject(MatDialog);
 
   pageChanged(num: number):void {
     this.category.set(num);
@@ -34,7 +40,7 @@ export class HelperformComponent implements OnInit {
 
   helperForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private service:ServiceService) {}
+  constructor(private fb: FormBuilder, private service:ServiceService, private router:Router) {}
 
   ngOnInit(): void {
     this.helperForm = this.fb.group({
@@ -67,9 +73,20 @@ export class HelperformComponent implements OnInit {
         }
       }
 
+      this.currenthelper = this.data;
       this.service.addHelper(this.data).subscribe(res => {
-        console.log("Success", res);
+      const dialogRef = this.dialog.open(DialogComponent, {
+        data: {
+          ...this.currenthelper,
+          deletion: false
+        }
       });
+
+      dialogRef.afterClosed().subscribe(() => {
+        this.router.navigate(['/helpers']);
+      });
+    });
+
     } else {
       console.warn("Form is invalid");
     }

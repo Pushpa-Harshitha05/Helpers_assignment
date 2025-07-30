@@ -25,4 +25,21 @@ export class ServiceService {
   decrementNumber() {
     this.sharedNumber.update(value => value-1);
   }
+
+  editHelperDetails() {
+    
+  }
+
+  getHelperById(id: string) {
+    return this.http.get(`http://localhost:3002/getdetails/${id}`);
+  }
+
+  updateHelper(id: string, data: any) {
+    return this.http.put(`http://localhost:3002/updatedetails/${id}`, data);
+  }
+
+  deleteHelper(id: string) {
+    return this.http.delete(`http://localhost:3002/delete/${id}`);
+  }
+
 }

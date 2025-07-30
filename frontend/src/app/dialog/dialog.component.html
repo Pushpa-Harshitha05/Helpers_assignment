@@ -1,0 +1,22 @@
+<div class="delete" *ngIf="data.deletion">
+    <img src='assets/images/warning.png' alt='delete' width=30px style="margin-left:25px; margin-top:35px">
+    <mat-dialog-content style="margin-bottom: -20px; font-size: 18px;">Delete <strong style="color:red">{{ data[3].value }}({{ data[1].value }})</strong>?</mat-dialog-content>
+    <span style="font-size:11px; color:gray; margin-left:25px">You can't undo this action</span>
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close="false">Cancel</button>
+        <button mat-button color="warn" [mat-dialog-close]="true">Delete</button>
+    </mat-dialog-actions>
+</div>
+
+<div class="posted" *ngIf="!data.deletion">
+  <mat-dialog-content style="font-size: 18px; padding: 16px;">
+    <strong style="color: rgb(188, 51, 238);">
+      {{ data[3].value }}
+    </strong> added successfully!
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button color="primary" (click)="dialogRef.close()">Close</button>
+  </mat-dialog-actions>
+</div>
+
