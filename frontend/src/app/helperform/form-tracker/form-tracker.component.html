@@ -6,11 +6,15 @@
 <aside class="tracker">
 
     <div class="tracker-line">
-        <div class="circle"></div>
-        <div class="line"></div>
-        <div class="circle"></div>
-        <div class="line"></div>
-        <div class="circle"></div>
+        <div class="circle" [ngClass]="{ 'finished': categ() >= 1, 'completed': categ() >= 2 }">
+            <img src="assets/images/select.png" alt="v" [ngClass]="{'nextpage': categ() >= 2 }" hidden>
+        </div>
+        <div class="line" [ngClass]="{ finished: categ() >= 2}"></div>
+        <div class="circle" [ngClass]="{ finished: categ() >= 2, 'completed': categ() >= 3}">
+            <img src="assets/images/select.png" alt="v" [ngClass]="{'nextpage': categ() >= 3}" hidden>
+        </div>
+        <div class="line" [ngClass]="{ 'finished': categ() >= 3}"></div>
+        <div class="circle" [ngClass]="{ 'finished': categ() >= 3}"></div>
     </div>
 
     <div class="text">

@@ -31,6 +31,7 @@ export class HelperformComponent implements OnInit {
   category = signal(1);
   data: any = [];
   currenthelper: any;
+  random: string;
 
   private dialog = inject(MatDialog);
 
@@ -59,41 +60,48 @@ export class HelperformComponent implements OnInit {
   }
 
   submitHelperForm() {
-    if (this.helperForm.valid) {
+  if (this.helperForm.valid) {
+    const formData = this.helperForm.value;
+    const fields = [];
 
-      const formData = this.helperForm.value;
-      for (let key in formData){
-        if(formData.hasOwnProperty(key)){
-          if(Array.isArray(formData[key])){
-            this.data.push({name:key,values:formData[key]});
-          }
-          else{
-            this.data.push({name:key,value:formData[key]});
-          }
+    for (let key in formData) {
+      if (formData.hasOwnProperty(key)) {
+        if (Array.isArray(formData[key])) {
+          fields.push({ name: key, values: formData[key] });
+        } else {
+          fields.push({ name: key, value: formData[key] });
         }
       }
+    }
 
-      this.currenthelper = this.data;
-      this.service.addHelper(this.data).subscribe(res => {
-      const dialogRef = this.dialog.open(DialogComponent, {
-        data: {
-          ...this.currenthelper,
-          deletion: false,
-        },
-        height: '400px',
-        width: '550px'
-      });
+    this.service.get_empId().subscribe(emp_id => {
+      const payload = {
+        emp_id: emp_id, 
+        fields: fields  
+      };
 
-      dialogRef.afterClosed().subscribe(() => {
-        this.router.navigate(['/helpers']);
+      this.currenthelper = payload;
+
+      this.service.addHelper(payload).subscribe(res => {
+        const dialogRef = this.dialog.open(DialogComponent, {
+          data: {
+            ...this.currenthelper,
+            deletion: false,
+          },
+          height: '400px',
+          width: '550px'
+        });
+
+        dialogRef.afterClosed().subscribe(() => {
+          this.router.navigate(['/helpers']);
+        });
       });
     });
 
-    } else {
-      console.warn("Form is invalid");
-    }
+  } else {
+    console.warn("Form is invalid");
   }
+}
 
   
 }
-

@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, ViewChild, ElementRef, HostListener, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, signal, ViewChild, ElementRef, HostListener, AfterViewInit } from '@angular/core';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { HelpersListComponent } from '../helpers-list/helpers-list.component';
 import { ServiceService } from '../services/service.service';
@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SelectDropdownComponent } from '../select-dropdown/select-dropdown.component';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 function getFieldValue(fields: any[], key: string): string {
   const field = fields.find(f => f.name === key);
@@ -26,7 +27,7 @@ function getFieldValue(fields: any[], key: string): string {
   styleUrl: './helpers.component.scss'
 })
 export class HelpersComponent implements OnInit {
-  constructor(private service:ServiceService,private router:Router, private el: ElementRef) {}
+  constructor(private service:ServiceService,private router:Router, private el: ElementRef, private route: ActivatedRoute,) {}
 
   helpers_number: number = 0;
   all_helpers: any;
@@ -38,6 +39,7 @@ export class HelpersComponent implements OnInit {
 
   @ViewChild('servicedropdown') servicedropdown!: SelectDropdownComponent;
   @ViewChild('ordropdown') ordropdown!: SelectDropdownComponent;
+  @ViewChild(HelpersListComponent) child!: HelpersListComponent;
   @HostListener('document:click', ['$event'])
 
   onDocumentClick(event: MouseEvent): void {
@@ -94,6 +96,7 @@ export class HelpersComponent implements OnInit {
 
 
   ngOnInit(): void {
+
     this.service.display().subscribe((response) => {
       this.all_helpers = response;
       this.helpers_number = this.all_helpers.length;
@@ -113,19 +116,30 @@ export class HelpersComponent implements OnInit {
   }
 
   sortBy(value: any) {
-    if(value == 'phone'){
+    if (value === 'emp_id') {
       this.selectedSortField = 2;
-    }
-    else{
+    } else {
       this.selectedSortField = 1;
     }
-    this.showdropdown = false;
 
-    this.all_helpers.sort((a, b) => {
-      const aVal = (getFieldValue(a.fields, value) || '').toLowerCase();
-      const bVal = (getFieldValue(b.fields, value) || '').toLowerCase();
+    this.showdropdown = false;
+    this.filtered_helpers = [...this.all_helpers];
+
+    this.filtered_helpers.sort((a, b) => {
+      let aVal: string, bVal: string;
+
+      if (value === 'emp_id') {
+        aVal = (a.emp_id || '').toLowerCase();
+        bVal = (b.emp_id || '').toLowerCase();
+      } else {
+        aVal = (getFieldValue(a.fields, value) || '').toLowerCase();
+        bVal = (getFieldValue(b.fields, value) || '').toLowerCase();
+      }
+
       return aVal.localeCompare(bVal);
     });
 
+    this.child.selectedHelper = this.filtered_helpers[0];
   }
+
 }

@@ -1,5 +1,6 @@
 import { Injectable,signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -38,4 +39,7 @@ export class ServiceService {
     return this.http.delete(`http://localhost:3002/delete/${id}`);
   }
 
+  get_empId(): Observable<string> {
+    return this.http.get('http://localhost:3002/generate-unique-id', { responseType: 'text' });
+  }
 }

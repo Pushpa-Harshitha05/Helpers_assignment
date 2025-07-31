@@ -1,14 +1,14 @@
-import { Component, inject, Input, Signal, OnChanges } from '@angular/core';
-import { ServiceService } from '../services/service.service';
+import { Component, Input, Signal, computed, inject, effect, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ServiceService } from '../services/service.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
-import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 function getFieldValue(fields: any[], key: string): string {
   const field = fields.find(f => f.name === key);
-  return field?.value?.toLowerCase() ?? '';
+  return (field?.value ?? '').toLowerCase();
 }
 
 @Component({
@@ -21,22 +21,33 @@ function getFieldValue(fields: any[], key: string): string {
   templateUrl: './helpers-list.component.html',
   styleUrl: './helpers-list.component.scss'
 })
+export class HelpersListComponent {
+  private service = inject(ServiceService);
+  private router = inject(Router);
+  private dialog = inject(MatDialog);
+  private snackBar = inject(MatSnackBar);
 
-export class HelpersListComponent implements OnChanges {
-  constructor(private service:ServiceService, private router:Router,private snackBar: MatSnackBar) {}
-
-  all_helpers: any = [];
+  all_helpers: any;
   selectedHelper: any;
 
   @Input() search!: Signal<string>;
-  @Input() helpers: any[] = [];
-  
-  filteredHelpers() {
-    const searchTerm = this.search().toLowerCase().trim();
+  readonly helpers = input<any[]>();
 
-    let baseList = this.helpers?.length > 0 ? this.helpers : this.all_helpers;
+  ngOnInit() {
+    this.service.display().subscribe((response: any[]) => {
+      this.all_helpers = response ?? [];
+      this.selectedHelper = this.all_helpers[0];
+    });
+  }
 
-    if (searchTerm !== '') {
+  filteredHelpers = computed(() => {
+    const searchTerm = this.search()?.toLowerCase().trim() ?? '';
+    const baseList = this.helpers()?.length > 0 ? this.helpers() : this.all_helpers;
+    if(this.helpers()){
+      this.selectedHelper = this.helpers()[0];
+    }
+
+    if (searchTerm) {
       return baseList.filter(helper => {
         const fullName = getFieldValue(helper.fields, 'fullName');
         const phone = getFieldValue(helper.fields, 'phone');
@@ -45,51 +56,38 @@ export class HelpersListComponent implements OnChanges {
     }
 
     return baseList;
-  }
+  });
 
+  constructor() {
+    effect(() => {
+      const list = this.filteredHelpers();
+      if (list?.length > 0) {
+        this.selectedHelper = list[0];
+      } else {
+        this.selectedHelper = null;
+      }
+    });
 
-  private dialog = inject(MatDialog);
-
-  ngOnInit(): void {
-  this.service.display().subscribe((response) => {
-    this.all_helpers = response;
-    if (this.all_helpers.length > 0) {
-      this.selectedHelper = this.all_helpers[0];
-    }
+    this.service.display().subscribe((response: any[]) => {
+      this.all_helpers = response ?? [];
     });
   }
 
-  ngOnChanges(): void {
-  this.service.display().subscribe((response) => {
-    this.all_helpers = response;
-    if (this.all_helpers.length > 0) {
-      this.selectedHelper = this.all_helpers[0];
-    }
-    });
-  }
 
   selectHelper(helper: any) {
     this.selectedHelper = helper;
   }
-  
+
   getFieldValue(fields: any[], fieldName: string): string {
     const found = fields.find(f => f.name === fieldName);
-    
-    if (found?.value && found.value.trim() !== '') {
-      return found.value;
-    }
-
-    if (Array.isArray(found?.values) && found.values.length > 0) {
-      return found.values.join(', ');
-    }
-
+    if (found?.value?.trim()) return found.value;
+    if (Array.isArray(found?.values)) return found.values.join(', ');
     return '-';
   }
 
   editHelper(helper: any): void {
     this.router.navigate(['/helpers/edit-helper', helper._id]);
   }
-
 
   deleteHelper(helper: any) {
     const dialogRef = this.dialog.open(DialogComponent, {
@@ -102,7 +100,7 @@ export class HelpersListComponent implements OnChanges {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
-        this.service.deleteHelper(helper._id).subscribe((res) => {
+        this.service.deleteHelper(helper._id).subscribe(() => {
           this.snackBar.open('Helper deleted successfully!', 'Close', {
             horizontalPosition: 'right',
             verticalPosition: 'bottom',
@@ -111,11 +109,8 @@ export class HelpersListComponent implements OnChanges {
           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
             this.router.navigate(['/helpers']);
           });
-        })
-      } else {
-        console.log('User deletion cancelled.');
+        });
       }
     });
   }
-
 }

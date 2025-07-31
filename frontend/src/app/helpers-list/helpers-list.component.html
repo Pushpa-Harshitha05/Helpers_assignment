@@ -1,8 +1,8 @@
 <div class="container">
   <div class="helpers-list">
-    <div *ngFor="let helper of filteredHelpers()" class="helper-card" [ngClass]="{ 'selected': helper === selectedHelper }" (click)="selectHelper(helper)">
+    <div *ngFor="let helper of filteredHelpers() || all_helpers" class="helper-card" [ngClass]="{ 'selected': helper === selectedHelper }" (click)="selectHelper(helper)">
       <div class="profilephoto">
-        {{ getFieldValue(helper.fields, 'fullName') | slice:0:1 }}
+        {{ getFieldValue(helper.fields, 'fullName') | slice:0:2 }}
       </div>
       <div class="detail">
         <p>{{ getFieldValue(helper.fields, 'fullName') }}</p>
@@ -39,7 +39,7 @@
     </div>
     <div class="item">
       <span>Employee Code</span>
-      <span>{{ getFieldValue(selectedHelper.fields, 'employeeCode')}}</span>
+      <span>{{ selectedHelper.emp_id}}</span>
     </div>
   </div>
 
