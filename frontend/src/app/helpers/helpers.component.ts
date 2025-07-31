@@ -1,10 +1,11 @@
-import { Component, OnInit, signal, ViewChild } from '@angular/core';
+import { Component, OnInit, signal, ViewChild, ElementRef, HostListener, EventEmitter, Output } from '@angular/core';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { HelpersListComponent } from '../helpers-list/helpers-list.component';
 import { ServiceService } from '../services/service.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SelectDropdownComponent } from '../select-dropdown/select-dropdown.component';
+import { FormsModule } from '@angular/forms';
 
 function getFieldValue(fields: any[], key: string): string {
   const field = fields.find(f => f.name === key);
@@ -18,13 +19,14 @@ function getFieldValue(fields: any[], key: string): string {
     SidebarComponent,
     HelpersListComponent,
     CommonModule,
-    SelectDropdownComponent
+    SelectDropdownComponent,
+    FormsModule
   ],
   templateUrl: './helpers.component.html',
   styleUrl: './helpers.component.scss'
 })
 export class HelpersComponent implements OnInit {
-  constructor(private service:ServiceService,private router:Router) {}
+  constructor(private service:ServiceService,private router:Router, private el: ElementRef) {}
 
   helpers_number: number = 0;
   all_helpers: any;
@@ -36,10 +38,39 @@ export class HelpersComponent implements OnInit {
 
   @ViewChild('servicedropdown') servicedropdown!: SelectDropdownComponent;
   @ViewChild('ordropdown') ordropdown!: SelectDropdownComponent;
+  @HostListener('document:click', ['$event'])
+
+  onDocumentClick(event: MouseEvent): void {
+    setTimeout(() => {
+      const target = event.target as HTMLElement;
+
+      const filterBtn = this.el.nativeElement.querySelector('#filter');
+      const filterBox = this.el.nativeElement.querySelector('.filter-options');
+      const sortBtn = this.el.nativeElement.querySelector('#sort');
+      const sortBox = this.el.nativeElement.querySelector('.sort-options');
+
+      const clickedInsideFilter = filterBtn?.contains(target) || filterBox?.contains(target);
+      const clickedInsideSort = sortBtn?.contains(target) || sortBox?.contains(target);
+
+      if (!clickedInsideFilter) {
+        this.showdropdown_filter = false;
+      }
+
+      if (!clickedInsideSort) {
+        this.showdropdown = false;
+      }
+    }, 0);
+  }
+
+  serviceOptions = ['Maid', 'Cook', 'Nurse', 'Driver', 'Laundry', 'Newspaper', 'Plumber'];
+  organizationOptions = ['ASBL', 'Springs Helpers'];
+
+  selectedService: string = '';
+  selectedOrganization: string = '';
 
   applyFilters() {
-    const service = this.servicedropdown.value;
-    const org = this.ordropdown.value;
+    const service = this.selectedService;
+    const org = this.selectedOrganization;
 
     this.filtered_helpers = this.all_helpers.filter(helper => {
       const serviceField = helper.fields.find(f => f.name === 'serviceType');
@@ -55,11 +86,12 @@ export class HelpersComponent implements OnInit {
   }
 
   resetFilters() {
-    this.servicedropdown.writeValue(null);
-    this.ordropdown.writeValue(null);
+    this.selectedService = '';
+    this.selectedOrganization = '';
     this.filtered_helpers = [...this.all_helpers];
     this.showdropdown_filter = false;
   }
+
 
   ngOnInit(): void {
     this.service.display().subscribe((response) => {
@@ -81,7 +113,7 @@ export class HelpersComponent implements OnInit {
   }
 
   sortBy(value: any) {
-    if(value == 'serviceType'){
+    if(value == 'phone'){
       this.selectedSortField = 2;
     }
     else{

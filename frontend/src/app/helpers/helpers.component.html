@@ -21,7 +21,7 @@
                             Sort by Helpers Name(A-Z)
                             <img src="assets/images/select.png" alt="..." *ngIf="selectedSortField === 1">
                         </p>
-                        <p (click)="sortBy('serviceType')" [ngClass]="{ sortselected: selectedSortField === 2 }">
+                        <p (click)="sortBy('phone')" [ngClass]="{ sortselected: selectedSortField === 2 }">
                             Employee ID
                             <img src="assets/images/select.png" alt="..." *ngIf="selectedSortField === 2">
                         </p>
@@ -32,19 +32,20 @@
                     <button id="filter" (click)="showdropdown_filter = !showdropdown_filter">
                         <img src="/assets/images/filter.png" alt="filter">
                     </button>
+
                     <div class="filter-options" *ngIf="showdropdown_filter">
-                        <app-select-dropdown 
-                        #servicedropdown
-                        heading="Type of Service"
-                        label="Select Type of Service"
-                        [options]="['Maid', 'Cook', 'Nurse', 'Driver', 'Laundry', 'Newspaper', 'Plumber']">
-                        </app-select-dropdown>
-                        <app-select-dropdown 
-                        #ordropdown
-                        heading="Organization Name"
-                        label="Organization Name"
-                        [options]="['ASBL', 'Springs Helpers']">
-                        </app-select-dropdown>
+                        <label for="service">Type of Service</label>
+                        <select id="service" [(ngModel)]="selectedService">
+                        <option value="" disabled selected>Select Type of Service</option>
+                        <option *ngFor="let option of serviceOptions" [value]="option">{{ option }}</option>
+                        </select>
+
+                        <label for="organization">Organization Name</label>
+                        <select id="organization" [(ngModel)]="selectedOrganization">
+                        <option value="" disabled selected>Select Organization</option>
+                        <option *ngFor="let org of organizationOptions" [value]="org">{{ org }}</option>
+                        </select>
+
                         <div class="filter-btns">
                             <button (click)="resetFilters()">reset</button>
                             <button (click)="applyFilters()">Apply</button>

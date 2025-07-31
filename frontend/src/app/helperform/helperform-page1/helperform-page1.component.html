@@ -32,24 +32,24 @@
       formControlName="organization">
     </app-select-dropdown>
     <div class="error-message" *ngIf="form.get('organization')?.touched && form.get('organization')?.hasError('required')">
-      This field is required
+      Organization name is required
     </div>
 
 
     <label for="name">Full Name*</label>
     <input type="text" id="name" placeholder="Full Name" formControlName="fullName" required>
-    <div class="error-message" *ngIf="form.get('fullName')?.touched && form.get('fullName')?.hasError('required')">
-      This field is required
+    <div class="error-message" *ngIf="form.get('fullName')?.touched && form.get('fullName')?.hasError('required')" id="name">
+      Full name is required
     </div>
 
     <app-checkbox name="language" formControlName="languages"></app-checkbox>
     <div class="error-message" *ngIf="form.get('languages')?.touched && form.get('languages')?.hasError('required')">
-      This field is required
+      Select atleast 1, max 3
     </div>
 
     <app-radio-button name="gender" formControlName="gender"></app-radio-button>
     <div class="error-message" *ngIf="form.get('gender')?.touched && form.get('gender')?.hasError('required')">
-      This field is required
+      Gender is required
     </div>
 
     <div class="phone-input-group">
@@ -63,7 +63,11 @@
       <input type="tel" id="phone" placeholder="Enter phone number" formControlName="phone" required>
     </div>
     <div class="error-message" *ngIf="form.get('phone')?.touched && form.get('phone')?.hasError('required')">
-      This field is required
+      Phone number is required
+    </div>
+
+    <div class="error-message" *ngIf="form.get('phone')?.touched && form.get('phone')?.hasError('pattern')">
+      Phone must contain exactly 10 digits
     </div>
 
     <label for="email">Email</label>

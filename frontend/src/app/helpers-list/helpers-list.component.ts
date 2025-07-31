@@ -22,7 +22,7 @@ function getFieldValue(fields: any[], key: string): string {
   styleUrl: './helpers-list.component.scss'
 })
 
-export class HelpersListComponent {
+export class HelpersListComponent implements OnChanges {
   constructor(private service:ServiceService, private router:Router,private snackBar: MatSnackBar) {}
 
   all_helpers: any = [];
@@ -51,6 +51,15 @@ export class HelpersListComponent {
   private dialog = inject(MatDialog);
 
   ngOnInit(): void {
+  this.service.display().subscribe((response) => {
+    this.all_helpers = response;
+    if (this.all_helpers.length > 0) {
+      this.selectedHelper = this.all_helpers[0];
+    }
+    });
+  }
+
+  ngOnChanges(): void {
   this.service.display().subscribe((response) => {
     this.all_helpers = response;
     if (this.all_helpers.length > 0) {
