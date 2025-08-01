@@ -5,6 +5,44 @@
     height: 100vh;
 }
 
+.excelbtn{
+  background-color: #673ab7;
+  width: 53.5vw;
+  margin-top: 60px;
+  margin-left: 35px;
+  height: 50px;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.seperation{
+  display: flex;
+  margin-top: 20px;
+  margin-bottom: -15px;
+  padding: 0px 13px;
+  
+  .orSpan{
+    width: 2vw;
+    margin: auto;
+    color: #673ab7;
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: -9px;
+  }
+  .sepline{
+    height: 1.45px;
+    width: 45%;
+    background-color: rgb(218, 218, 218);
+    margin-top: 20px;
+  }
+}
+
 .line {
     height: 1.45px;
     width: 100%;

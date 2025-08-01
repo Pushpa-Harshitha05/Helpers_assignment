@@ -23,7 +23,8 @@ import { ReactiveFormsModule, FormGroup } from '@angular/forms';
 
 export class HelperformPage1Component{
 
-  pattern: string = '[0-9]{10}'
+  pattern: string = '[0-9]{10}';
+  vehicle: boolean = false;
 
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
   fileUpload() {
@@ -45,6 +46,22 @@ export class HelperformPage1Component{
     this.changePage.emit(2);
   }
 
+  getValue(){
+    console.log(this.form.get('serviceType').value);
+  }
+
   @Input() form!: FormGroup;
 
+  ngOnInit() {
+    this.form.get('serviceType')!.valueChanges.subscribe(() => {
+      const control = this.form.get('serviceType');
+      setTimeout(() => {
+        if (control?.touched) {
+          if(control.value == 'Driver'){
+            this.vehicle = true;
+          }
+        }
+      });
+    });
+  }
 }

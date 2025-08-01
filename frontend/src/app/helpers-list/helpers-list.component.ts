@@ -1,4 +1,4 @@
-import { Component, Input, Signal, computed, inject, effect, input } from '@angular/core';
+import { Component, Input, Signal, computed, inject, effect, input, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ServiceService } from '../services/service.service';
 import { Router } from '@angular/router';
@@ -43,9 +43,13 @@ export class HelpersListComponent {
   filteredHelpers = computed(() => {
     const searchTerm = this.search()?.toLowerCase().trim() ?? '';
     const baseList = this.helpers()?.length > 0 ? this.helpers() : this.all_helpers;
-    if(this.helpers()){
+    if (this.helpers() && this.helpers().length > 0) {
       this.selectedHelper = this.helpers()[0];
     }
+    else{
+      this.selectedHelper = null;
+    }
+
 
     if (searchTerm) {
       return baseList.filter(helper => {
@@ -79,7 +83,7 @@ export class HelpersListComponent {
   }
 
   getFieldValue(fields: any[], fieldName: string): string {
-    const found = fields.find(f => f.name === fieldName);
+    const found = fields?.find(f => f.name === fieldName);
     if (found?.value?.trim()) return found.value;
     if (Array.isArray(found?.values)) return found.values.join(', ');
     return '-';
@@ -94,7 +98,7 @@ export class HelpersListComponent {
       width: '400px',
       data: {
         ...helper.fields,
-        deletion: true
+        deletion: 0
       }
     });
 

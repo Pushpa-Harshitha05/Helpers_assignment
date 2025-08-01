@@ -62,7 +62,7 @@
         }
 
         span{
-          width: 100px;
+          width: 120px;
           color: rgb(117, 117, 117);
         }
 
@@ -227,6 +227,9 @@
               margin-top: 1rem;
 
               button {
+                display: flex;
+                justify-content: center;
+                align-items: center;
                 flex: 1;
                 padding: 0.5rem 0.75rem;
                 font-size: 0.95rem;
@@ -245,11 +248,11 @@
                 }
 
                 &:last-child {
-                  background-color: #4a90e2;
+                  background-color: rgb(130, 109, 198);
                   color: white;
 
                   &:hover {
-                    background-color: #357ac8;
+                    background-color: rgb(98, 77, 170);
                   }
                 }
               }

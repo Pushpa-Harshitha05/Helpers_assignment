@@ -12,7 +12,12 @@
     </div>
   </div>
 
-  <div class="profile-card" *ngIf="selectedHelper">
+  <ng-template #noHelperSelected>
+    <div class="nohelpers">
+      <p>No helper with the selected filters.</p>
+    </div>
+  </ng-template>
+  <div class="profile-card" *ngIf="selectedHelper; else noHelperSelected">
     <div class="profile-header">
       <div class="left-section">
         <div class="initials">
@@ -82,6 +87,7 @@
       <span>{{ getFieldValue(selectedHelper.fields, 'joiningDate') }}</span>
     </div>
   </div>
+  
 </div>
 
 </div>

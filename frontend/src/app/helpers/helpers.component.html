@@ -59,7 +59,7 @@
                     <img src="/assets/images/search.png" alt="search icon">
                     <input type="search" name="search" id="search-employee" placeholder="Name, Employee ID, Phone" [value]="searchSignal()" (input)="searchSignal.set($any($event.target).value)">
                 </div>
-                <span>{{helpers_number + ' helpers'}}</span>
+                <span>{{helpers_number()}} helpers</span>
             </div>
 
             <div class="last-btns">

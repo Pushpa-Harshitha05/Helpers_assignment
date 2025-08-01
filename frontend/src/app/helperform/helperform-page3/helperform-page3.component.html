@@ -14,7 +14,7 @@
       <li><strong>Languages:</strong> {{ data['languages'].join(', ') }}</li>
       <li><strong>Mobile No.:</strong> {{ data['phonePrefix'] }} {{ data['phone'] }}</li>
       <li><strong>Email ID:</strong> {{ data['email'] || '-' }}</li>
-      <li><strong>KYC Document:</strong> <a href="#"><img src="assets/images/view.png" alt="view"></a></li>
+      <li><strong>KYC Document:</strong> <a href="#" (click)="$event.preventDefault()"><img src="assets/images/view.png" alt="view"></a></li>
     </ul>
   </div>
 

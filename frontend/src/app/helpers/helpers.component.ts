@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, ViewChild, ElementRef, HostListener, AfterViewInit } from '@angular/core';
+import { Component, OnInit, signal, ViewChild, ElementRef, HostListener, AfterViewInit, effect, runInInjectionContext, inject, EnvironmentInjector, computed, Signal, Injector } from '@angular/core';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { HelpersListComponent } from '../helpers-list/helpers-list.component';
 import { ServiceService } from '../services/service.service';
@@ -27,19 +27,21 @@ function getFieldValue(fields: any[], key: string): string {
   styleUrl: './helpers.component.scss'
 })
 export class HelpersComponent implements OnInit {
-  constructor(private service:ServiceService,private router:Router, private el: ElementRef, private route: ActivatedRoute,) {}
-
-  helpers_number: number = 0;
+  
+  helpers_number = signal(0);
   all_helpers: any;
   searchSignal = signal('');
   showdropdown: boolean = false;
   selectedSortField: number = 1;
   showdropdown_filter: boolean = false;
   filtered_helpers: any;
-
+  
   @ViewChild('servicedropdown') servicedropdown!: SelectDropdownComponent;
   @ViewChild('ordropdown') ordropdown!: SelectDropdownComponent;
   @ViewChild(HelpersListComponent) child!: HelpersListComponent;
+  
+  constructor(private service:ServiceService,private router:Router, private el: ElementRef, private route: ActivatedRoute,) {}
+
   @HostListener('document:click', ['$event'])
 
   onDocumentClick(event: MouseEvent): void {
@@ -69,6 +71,8 @@ export class HelpersComponent implements OnInit {
 
   selectedService: string = '';
   selectedOrganization: string = '';
+  injector = inject(Injector);
+
 
   applyFilters() {
     const service = this.selectedService;
@@ -99,7 +103,7 @@ export class HelpersComponent implements OnInit {
 
     this.service.display().subscribe((response) => {
       this.all_helpers = response;
-      this.helpers_number = this.all_helpers.length;
+      this.helpers_number.set(this.all_helpers.length);
       });
 
     if(this.all_helpers){

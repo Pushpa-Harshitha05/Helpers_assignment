@@ -5,6 +5,15 @@
   padding-left: 20px;
   align-items: flex-start;
   width: 94%;
+
+  .nohelpers{
+      width: 64vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 66vh;
+      font-size: 1.2rem;
+    }
 }
 
 .helpers-list {
