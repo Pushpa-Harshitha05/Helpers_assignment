@@ -305,17 +305,41 @@
         align-items: center;
         gap: 10px;
 
-        button {
-          width: 51px;
-          height: 32px;
+        .excelbtn{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        #download{
+           display: flex;
+          justify-content: center;
+          align-items: center;
+           width: 45px;
+          height: 28px;
+          border-radius: 4px;
+          border: 1px solid rgb(207, 207, 207);
+          background-color: white;
+          cursor: pointer;
+
+          img{
+            width: 16px;
+            height: 16px;
+          }
+        }
+
+        #add-helper, .excelbtn {
+          width: 45px;
+          height: 28px;
           border-radius: 4px;
           border: 1px solid rgb(207, 207, 207);
           background-color: white;
           cursor: pointer;
 
           img {
-            width: 14px;
-            height: 14px;
+            width: 16px;
+            height: 16px;
+            transform: rotate(180deg);
           }
 
           &:first-child {

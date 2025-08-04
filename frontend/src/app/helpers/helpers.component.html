@@ -63,9 +63,13 @@
             </div>
 
             <div class="last-btns">
-                <button id="download">
-                    <img src="assets/images/download.png" alt="">
+                <button id="download" title="download" (click)="DownloadasExcel()">
+                    <img src="assets/images/download.png" alt="download">
                 </button>
+                <div class="excelbtn" (click)="activateInput()" [attr.title]="tooltipText">
+                    <img src="assets/images/download.png" alt="upload">
+                    <input type="file" id="excelfile" accept=".xls,.xlsx" (change)="openExcel($event)" #excelFileClick hidden>
+                </div>
                 <button id="add-helper" (click)="addNewHelper()">
                     <img src="assets/images/plus.png" alt="add">
                     <span>Add Helper</span>

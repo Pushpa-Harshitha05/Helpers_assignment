@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import * as XLSX from 'xlsx';
+import { take } from 'rxjs';
+
 
 @Component({
   selector: 'app-helperform',
@@ -33,6 +35,8 @@ export class HelperformComponent implements OnInit {
   data: any = [];
   currenthelper: any;
   random: string;
+  get_helpers: any;
+  dup: number = 0;
 
   private dialog = inject(MatDialog);
 
@@ -58,6 +62,13 @@ export class HelperformComponent implements OnInit {
       vehicleType: ['None'],
       kycDocument: [null]
     });
+
+    this.service.helperFunctionCall$.pipe(take(1)).subscribe((event) => {
+      this.onFileChange(event);
+      this.service.clearHelperFunctionTrigger();
+    });
+
+
   }
 
   submitHelperForm() {
@@ -104,15 +115,14 @@ export class HelperformComponent implements OnInit {
     }
   }
 
-  @ViewChild('excelFileClick') fileclick!: ElementRef<HTMLInputElement>;
-
-  activateInput(){
-    this.fileclick.nativeElement.click();
-  }
-
   onFileChange(event: any) {
+    this.dup = 0;
     const file = event.target.files[0];
-    if (file) {
+    if (!file) return;
+
+    this.service.display().subscribe((res) => {
+      this.get_helpers = res;
+
       const reader = new FileReader();
       reader.onload = (e: any) => {
         const data = new Uint8Array(e.target.result);
@@ -126,10 +136,13 @@ export class HelperformComponent implements OnInit {
 
         const totalRows = jsonData.length - 1;
         let completedRequests = 0;
+        let rowsToInsertOrUpdate = 0;
 
         for (let i = 1; i < jsonData.length; i++) {
           const row = jsonData[i];
-          const fields = [];
+          const fields: any[] = [];
+          const plainObj: any = {};
+
           fields.push({ name: 'profile', value: null });
 
           for (let j = 0; j < headings.length; j++) {
@@ -140,42 +153,72 @@ export class HelperformComponent implements OnInit {
               try {
                 value = JSON.parse(value);
                 fields.push({ name: key, values: value });
+                plainObj[key] = value;
               } catch (e) {
-                console.warn(`Invalid array format in 'languages': ${value}`);
+                console.warn(`Error parsing languages: ${e}`);
               }
             } else {
               fields.push({ name: key, value: value });
+              plainObj[key] = value;
             }
           }
 
           fields.push({ name: 'kycDocument', value: null });
 
-          this.service.get_empId().subscribe(emp_id => {
-            const payload = { emp_id, fields };
+          const existingHelper = this.get_helpers.find(helper => {
+            const getValue = (fieldName: string) =>
+              helper.fields.find(h => h.name === fieldName)?.value;
 
-            this.service.addHelper(payload).subscribe(() => {
+            return (
+              getValue('fullName') === plainObj['fullName'] &&
+              getValue('phone') === plainObj['phone'] &&
+              getValue('email') === plainObj['email']
+            );
+          });
+
+          rowsToInsertOrUpdate++;
+
+          if (existingHelper) {
+            const helperId = existingHelper._id;
+            this.service.updateHelper(helperId, fields ).subscribe(() => {
               completedRequests++;
-
-              if (completedRequests === totalRows) {
-                const dialogRef = this.dialog.open(DialogComponent, {
-                  data: {
-                    deletion: 2,
-                  },
-                  height: '400px',
-                  width: '550px'
-                });
-
-                dialogRef.afterClosed().subscribe(() => {
-                  this.router.navigate(['/helpers']);
-                });
+              if (completedRequests === rowsToInsertOrUpdate) {
+                this.openDialogAndRedirect();
               }
             });
-          });
+          } else {
+            this.service.get_empId().subscribe(emp_id => {
+              const payload = { emp_id, fields };
+
+              this.service.addHelper(payload).subscribe(() => {
+                completedRequests++;
+                if (completedRequests === rowsToInsertOrUpdate) {
+                  this.openDialogAndRedirect();
+                }
+              });
+            });
+          }
         }
       };
 
       reader.readAsArrayBuffer(file);
-    }
+    });
+  }
+
+
+  openDialogAndRedirect() {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      data: {
+        deletion: 2,
+        duplicates: this.dup
+      },
+      height: '400px',
+      width: '550px'
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.router.navigate(['/helpers']);
+    });
   }
   
 }

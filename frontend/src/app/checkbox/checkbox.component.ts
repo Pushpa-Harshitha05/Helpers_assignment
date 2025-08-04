@@ -64,7 +64,6 @@ export class CheckboxComponent {
     this.selectedlanguages.set(updated);
     this.onChange(Array.from(updated));
     this.onTouched();
-    console.log(updated);
   }
 
   toggleSelectAll(checked: boolean) {

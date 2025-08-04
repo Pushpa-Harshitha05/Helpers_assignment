@@ -1,6 +1,6 @@
 import { Injectable,signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, ReplaySubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +8,20 @@ import { Observable } from 'rxjs';
 export class ServiceService {
 
   sharedNumber = signal<number>(1);
+
+  private helperFunctionCall = new ReplaySubject<any>(1);
+
+  helperFunctionCall$ = this.helperFunctionCall.asObservable();
+
+  triggerHelpersFunction(arg: any) {
+    this.helperFunctionCall.next(arg);
+  }
+
+  clearHelperFunctionTrigger() {
+    this.helperFunctionCall = new ReplaySubject<any>(1);
+    this.helperFunctionCall$ = this.helperFunctionCall.asObservable();
+  }
+
 
   constructor(private http:HttpClient) { }
 
@@ -41,5 +55,11 @@ export class ServiceService {
 
   get_empId(): Observable<string> {
     return this.http.get('http://localhost:3002/generate-unique-id', { responseType: 'text' });
+  }
+
+  downloadfunc(data: any): Observable<Blob> {
+    return this.http.post('http://localhost:3002/download', data, {
+      responseType: 'blob'
+    });
   }
 }

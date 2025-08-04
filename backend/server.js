@@ -9,6 +9,7 @@ const getUserDetails = require('./routes/get-user-details');
 const editDetails = require('./routes/edit-details');
 const deleteHelper = require('./routes/delete-user');
 const empID = require('./routes/emp_id');
+const downloadDetails = require('./routes/download_helpers');
 
 app.use(cors());
 app.use(express.json());
@@ -19,6 +20,7 @@ app.use('/getdetails',getUserDetails);
 app.use('/updatedetails',editDetails);
 app.use('/delete', deleteHelper);
 app.use('/generate-unique-id', empID);
+app.use('/download',downloadDetails);
 
 async function connectDB() {
     mongoose.connect("mongodb://localhost:27017/helpers")

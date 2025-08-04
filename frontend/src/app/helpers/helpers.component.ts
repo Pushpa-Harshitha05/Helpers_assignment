@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { SelectDropdownComponent } from '../select-dropdown/select-dropdown.component';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { HelperformComponent } from '../helperform/helperform.component';
 
 function getFieldValue(fields: any[], key: string): string {
   const field = fields.find(f => f.name === key);
@@ -21,7 +22,8 @@ function getFieldValue(fields: any[], key: string): string {
     HelpersListComponent,
     CommonModule,
     SelectDropdownComponent,
-    FormsModule
+    FormsModule,
+    HelperformComponent
   ],
   templateUrl: './helpers.component.html',
   styleUrl: './helpers.component.scss'
@@ -35,6 +37,7 @@ export class HelpersComponent implements OnInit {
   selectedSortField: number = 1;
   showdropdown_filter: boolean = false;
   filtered_helpers: any;
+  tooltipText = "Upload data using excel";
   
   @ViewChild('servicedropdown') servicedropdown!: SelectDropdownComponent;
   @ViewChild('ordropdown') ordropdown!: SelectDropdownComponent;
@@ -144,6 +147,30 @@ export class HelpersComponent implements OnInit {
     });
 
     this.child.selectedHelper = this.filtered_helpers[0];
+  }
+
+  @ViewChild('excelFileClick') fileclick!: ElementRef<HTMLInputElement>;
+
+  activateInput(){
+    this.fileclick.nativeElement.click();
+  }
+
+  openExcel(event: any) {
+    this.router.navigate(['/helpers/add-helper']).then(() => {
+      this.service.triggerHelpersFunction(event);
+    });
+  }
+
+  DownloadasExcel(){
+    this.service.downloadfunc(this.all_helpers).subscribe((data: Blob) => {
+      const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'helpers.xlsx';
+      a.click();
+      window.URL.revokeObjectURL(url);
+    });
   }
 
 }

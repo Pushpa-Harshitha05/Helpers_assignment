@@ -24,8 +24,5 @@ export class HelperformPage3Component implements OnInit{
 
   ngOnInit() {
     this.data = this.form.value;
-    for(this.ele in this.data){
-      console.log(this.ele);
-    }
   }
 }
